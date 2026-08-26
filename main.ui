@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>899</width>
+    <height>861</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>891</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu</family>
+     <pointsize>28</pointsize>
+     <italic>false</italic>
+     <fontweight>ExtraBold</fontweight>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 800 28pt &quot;Ubuntu&quot;;</string>
+   </property>
+   <property name="text">
+    <string>준호네 도서관</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>131</y>
+     <width>891</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="dragEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_member_info">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>140</y>
+     <width>80</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>회원정보</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_login">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>140</y>
+     <width>80</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>로그인</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_book_search">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>200</y>
+     <width>71</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>도서 조회</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_rental_update">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>320</y>
+     <width>71</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>대여 현황</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_book_return">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>450</y>
+     <width>71</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>반납</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_book_manage">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>580</y>
+     <width>71</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>도서 관리</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_member_manage">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>710</y>
+     <width>71</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>회원 관리</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_3">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>140</y>
+     <width>71</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_4">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>170</y>
+     <width>891</width>
+     <height>681</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>180</y>
+     <width>801</width>
+     <height>661</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="book_table">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>190</y>
+     <width>781</width>
+     <height>641</height>
+    </rect>
+   </property>
+  </widget>
+  <zorder>lineEdit_4</zorder>
+  <zorder>lineEdit</zorder>
+  <zorder>lineEdit_2</zorder>
+  <zorder>btn_member_info</zorder>
+  <zorder>btn_login</zorder>
+  <zorder>btn_book_search</zorder>
+  <zorder>btn_rental_update</zorder>
+  <zorder>btn_book_return</zorder>
+  <zorder>btn_book_manage</zorder>
+  <zorder>btn_member_manage</zorder>
+  <zorder>lineEdit_3</zorder>
+  <zorder>tableWidget</zorder>
+  <zorder>book_table</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

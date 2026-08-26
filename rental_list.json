@@ -1,0 +1,19 @@
+[
+  {
+    "user_id": "",
+    "rental_book": [
+      {"title": "", "author": "", "subject": "", "target": "", "rental_start": "", "rental_end": ""}, 
+      {"title": "", "author": "", "subject": "", "target": "", "rental_start": "", "rental_end": ""},
+      {"title": "", "author": "", "subject": "", "target": "", "rental_start": "", "rental_end": ""}
+  ]
+  },
+  {
+    "user_id": "",
+    "rental_book": [
+      {"title": "", "author": "", "subject": "", "target": "", "rental_start": "", "rental_end": ""}, 
+      {"title": "", "author": "", "subject": "", "target": "", "rental_start": "", "rental_end": ""},
+      {"title": "", "author": "", "subject": "", "target": "", "rental_start": "", "rental_end": ""}
+  ]
+  }
+
+]

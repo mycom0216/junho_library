@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AdminMain</class>
+ <widget class="QWidget" name="AdminMain">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>420</width>
+    <height>360</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>관리자 화면</string>
+  </property>
+  <widget class="QLabel" name="admin_title_label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>380</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>관리자 메뉴</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_add_librarian">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>380</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>사서 등록</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_manage_members">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>120</y>
+     <width>380</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>회원 관리</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_manage_books">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>170</y>
+     <width>380</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>도서 관리</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_rental_status">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>220</y>
+     <width>380</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>회원 대여현황 조회/수정</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_logout">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>290</y>
+     <width>380</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>로그아웃</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
