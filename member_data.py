@@ -106,7 +106,7 @@ def add_user(member: dict):
         "class": "일반사용자",
         "rating": "일반회원",
         "total_rental": 0,
-        "rental": []
+        "rental": 0
     }
 
     users.append(new_user)
@@ -233,7 +233,7 @@ def create_admin(password: str):
         "class": "관리자",
         "rating": "관리자",
         "total_rental": 0,
-        "rental": []
+        "rental": 0
     }
 
     # 3) 리스트 맨 뒤에 추가하고

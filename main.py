@@ -2,11 +2,13 @@ import os
 import sys
 import json
 
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QApplication,
     QMessageBox,
     QLineEdit,
     QTableWidget,
+    QPushButton,
     QTableWidgetItem
 )
 from PySide6.QtCore import QFile
@@ -44,10 +46,10 @@ class Library:
         self.load_books()
         
         
-        #============== 도서 테이블 ===========#
+      
         
 
-        self.load_books() ### json 파일 불러오기
+        
 
         # =================================================
         # 버튼
@@ -115,7 +117,7 @@ class Library:
 
         if self.btn_login is not None:
             self.btn_login.clicked.connect(
-                self.open_login
+            self.open_login
             )
 
         # =================================================
@@ -256,11 +258,15 @@ class Library:
 
             self.books = []
 
-    # =====================================================
+        # =====================================================
     # 도서 목록 화면에 표시
     # =====================================================
 
     def show_books(self):
+
+        # =================================================
+        # book_table 확인
+        # =================================================
 
         if self.book_table is None:
 
@@ -268,69 +274,423 @@ class Library:
 
             return
 
+        # =================================================
         # 테이블 초기화
+        # =================================================
+
         self.book_table.clear()
 
-        # 책 개수만큼 행 생성
+        # 왼쪽 1, 2, 3, 4... 행 번호 제거
+        self.book_table.verticalHeader().setVisible(False)
+
+        # =================================================
+        # 행 개수 설정
+        # =================================================
+
         self.book_table.setRowCount(
             len(self.books)
         )
 
-        # 4개의 열
-        self.book_table.setColumnCount(4)
+        # =================================================
+        # 열 개수 설정
+        #
+        # 0 : 제목
+        # 1 : 저자
+        # 2 : 발행처
+        # 3 : 주제
+        # 4 : 대상
+        # 5 : 대여여부
+        # 6 : 대여 버튼
+        # =================================================
 
+        self.book_table.setColumnCount(7)
+
+        # =================================================
         # 열 제목
+        # =================================================
+
         self.book_table.setHorizontalHeaderLabels([
-            "도서번호",
-            "책 제목",
+            "제목",
             "저자",
-            "대여상태"
+            "발행처",
+            "주제",
+            "대상",
+            "대여여부",
+            "대여"
         ])
 
-        # JSON 데이터 출력
+        # =================================================
+        # JSON 데이터를 한 권씩 테이블에 출력
+        # =================================================
+
         for row, book in enumerate(self.books):
+
+            # -------------------------------------------------
+            # 제목
+            # -------------------------------------------------
 
             self.book_table.setItem(
                 row,
                 0,
                 QTableWidgetItem(
-                    str(book.get("book_id", ""))
+                    str(
+                        book.get(
+                            "title",
+                            ""
+                        )
+                    )
                 )
             )
+
+            # -------------------------------------------------
+            # 저자
+            # -------------------------------------------------
 
             self.book_table.setItem(
                 row,
                 1,
                 QTableWidgetItem(
-                    str(book.get("title", ""))
+                    str(
+                        book.get(
+                            "author",
+                            ""
+                        )
+                    )
                 )
             )
+
+            # -------------------------------------------------
+            # 발행처
+            # -------------------------------------------------
 
             self.book_table.setItem(
                 row,
                 2,
                 QTableWidgetItem(
-                    str(book.get("author", ""))
+                    str(
+                        book.get(
+                            "publisher",
+                            ""
+                        )
+                    )
                 )
             )
+
+            # -------------------------------------------------
+            # 주제
+            # -------------------------------------------------
 
             self.book_table.setItem(
                 row,
                 3,
                 QTableWidgetItem(
-                    str(book.get("status", "대여가능"))
+                    str(
+                        book.get(
+                            "subject",
+                            ""
+                        )
+                    )
                 )
             )
 
-        # 열 크기 자동 조절
-        # self.book_table.resizeColumnsToContents()
-        # # 테이블 전체 너비에 맞게 마지막 열까지 표시
-        # self.book_table.horizontalHeader().setStretchLastSection(True)
-            # 열 크기 설정
-        self.book_table.setColumnWidth(0, 70)
-        self.book_table.setColumnWidth(1, 450)
-        self.book_table.setColumnWidth(2, 150)
-        self.book_table.setColumnWidth(3, 100)
+            # -------------------------------------------------
+            # 대상
+            # -------------------------------------------------
+
+            self.book_table.setItem(
+                row,
+                4,
+                QTableWidgetItem(
+                    str(
+                        book.get(
+                            "target",
+                            ""
+                        )
+                    )
+                )
+            )
+
+            # -------------------------------------------------
+            # 대여여부
+            # -------------------------------------------------
+
+            rental = str(
+                book.get(
+                    "rental",
+                    "1"
+                )
+            )
+
+            # rental == 1 → 대여가능
+            # rental == 0 → 대여중
+
+            if rental == "1":
+
+                rental_text = "대여가능"
+
+            else:
+
+                rental_text = "대여중"
+
+            self.book_table.setItem(
+                row,
+                5,
+                QTableWidgetItem(
+                    rental_text
+                )
+            )
+
+            # -------------------------------------------------
+            # 대여 버튼
+            # -------------------------------------------------
+
+            rental_button = QPushButton(
+                "대여"
+            )
+
+            # 현재 행 번호를 기억
+            rental_button.clicked.connect(
+                lambda checked=False, r=row:
+                self.rental_book(r)
+            )
+
+            # 이미 대여중이면 버튼 비활성화
+            if rental != "1":
+
+                rental_button.setEnabled(
+                    False
+                )
+
+            # 7번째 열에 대여 버튼 추가
+            self.book_table.setCellWidget(
+                row,
+                6,
+                rental_button
+            )
+
+        # =================================================
+        # 열 너비 설정
+        #
+        # 중요:
+        # 이 부분은 for문 바깥에 있어야 함
+        # =================================================
+
+        self.book_table.setColumnWidth(
+            0,
+            300
+        )
+
+        self.book_table.setColumnWidth(
+            1,
+            150
+        )
+
+        self.book_table.setColumnWidth(
+            2,
+            150
+        )
+
+        self.book_table.setColumnWidth(
+            3,
+            120
+        )
+
+        self.book_table.setColumnWidth(
+            4,
+            100
+        )
+
+        self.book_table.setColumnWidth(
+            5,
+            100
+        )
+
+        self.book_table.setColumnWidth(
+            6,
+            80
+        )
+
+   
+        # =====================================================
+    # 도서 대여
+    # =====================================================
+
+    def rental_book(self, row):
+
+        # 현재 도서
+        book = self.books[row]
+
+        # 이미 대여중인지 확인
+        if str(book.get("rental", "1")) != "1":
+
+            QMessageBox.warning(
+                self.window,
+                "대여 불가",
+                "이미 대여 중인 도서입니다."
+            )
+
+            return
+
+        # =================================================
+        # 대여 확인 창
+        # =================================================
+
+        dialog = QMessageBox()
+
+        dialog.setWindowTitle(
+            "도서 대여"
+        )
+
+        dialog.setText(
+            "대여하시겠습니까?"
+        )
+
+        # 확인 / 취소 버튼
+        ok_button = dialog.addButton(
+            "확인",
+            QMessageBox.AcceptRole
+        )
+
+        dialog.addButton(
+            "취소",
+            QMessageBox.RejectRole
+        )
+
+        # =================================================
+        # 메인 창 가운데에 배치
+        # =================================================
+
+        dialog.adjustSize()
+
+        main_rect = self.window.frameGeometry()
+
+        dialog_rect = dialog.frameGeometry()
+
+        dialog.move(
+            main_rect.center() -
+            dialog_rect.center()
+        )
+
+        # 창 실행
+        dialog.exec()
+
+        # =================================================
+        # 확인을 누른 경우
+        # =================================================
+
+        if dialog.clickedButton() == ok_button:
+
+            # JSON 대여 상태 변경
+            book["rental"] = "0"
+
+            # 화면 대여여부 변경
+            status_item = self.book_table.item(
+                row,
+                5
+            )
+
+            if status_item is not None:
+
+                status_item.setText(
+                    "대여중"
+                )
+
+            # 대여 버튼 비활성화
+            rental_button = self.book_table.cellWidget(
+                row,
+                6
+            )
+
+            if rental_button is not None:
+
+                rental_button.setEnabled(
+                    False
+                )
+
+            # JSON 저장
+            self.save_books()
+
+                      # =================================================
+            # 대여 완료 메시지
+            # =================================================
+
+            complete_dialog = QMessageBox()
+
+            complete_dialog.setWindowTitle(
+                "대여 완료"
+            )
+
+            complete_dialog.setText(
+                "도서가 대여되었습니다."
+            )
+
+            complete_dialog.setStandardButtons(
+                QMessageBox.StandardButton.Ok
+            )
+
+            # OK 버튼 글자 변경
+            complete_dialog.button(
+                QMessageBox.StandardButton.Ok
+            ).setText("확인")
+
+            # =================================================
+            # 메인 창 가운데에 배치
+            # =================================================
+
+            complete_dialog.adjustSize()
+
+            main_rect = self.window.frameGeometry()
+
+            dialog_rect = complete_dialog.frameGeometry()
+
+            complete_dialog.move(
+                main_rect.center()
+                - dialog_rect.center()
+            )
+
+            # 완료 창 표시
+            complete_dialog.exec()
+    
+        # =====================================================
+    # book_list.json 저장
+    # =====================================================
+
+    def save_books(self):
+
+        json_path = os.path.join(
+            os.path.dirname(
+                os.path.abspath(__file__)
+            ),
+            "book_list.json"
+        )
+
+        try:
+
+            with open(
+                json_path,
+                "w",
+                
+                encoding="utf-8"
+            ) as file:
+
+                json.dump(
+                    self.books,
+                    file,
+                    ensure_ascii=False,
+                    indent=4
+                )
+
+            print("도서 목록 저장 성공")
+
+        except Exception as e:
+
+            QMessageBox.critical(
+                self.window,
+                "도서 목록 오류",
+                f"도서 목록을 저장하지 못했습니다.\n\n{e}"
+            )
+        
+        
 
     # =====================================================
     # 로그인 창
